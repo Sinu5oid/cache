@@ -86,7 +86,7 @@ type getOrFetchResult[T any] struct {
 // If the value was not found - calls provided fetcher function, saves received value to the cache.
 func (c *Cache[T]) GetOrFetch(_ context.Context, key string, fetcher func() (T, error)) (T, error) {
 	done := make(chan getOrFetchResult[T])
-	close(done)
+	defer close(done)
 
 	lock, loaded := c.rwQueue.LoadOrStore(key, done)
 	if loaded {
