@@ -102,7 +102,7 @@ func (c *Cache[T]) get(ctx context.Context, key string, do func() (T, error)) (T
 	item := rc.Item{
 		Ctx:   ctx,
 		Key:   c.formatKey(key),
-		Value: &out,
+		Value: out,
 	}
 
 	if do != nil {
